@@ -1,0 +1,257 @@
+# This is a sample Python script.
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+from typing import NamedTuple
+import sqlite3
+
+class Accountdata(NamedTuple):
+    id: int
+    fname :str
+    mname: str
+    lastname: str
+    completebday: str
+    address: str
+    typeofID: str
+    numberID: str
+    accStatus: str
+    balance: int
+    pinorpass: str
+    phoneNumber: str
+
+class OtherAccountdata(NamedTuple):
+    id: int
+    fname: str
+    mname: str
+    lname: str
+    phoneNumber: str
+
+def splashscreen():
+    # splashscreen gui
+    print("Press Any Key to Continue...")
+    input()
+    selectLoginOrRegister()
+
+def selectLoginOrRegister():
+    isValid = False
+    while not isValid:
+        #Insert ATM gui
+        print("Insert ATM Card")
+        print("--OR--")
+        print("(L)Login")
+        print("(R)Register")
+        print("(X)Cancel")
+        typeOfAction = input("Your choice: ")
+
+        if typeOfAction == "L" :
+            print("Login Selected")
+            isValid = True
+            loginUser()
+
+        elif typeOfAction == "R" :
+            print("Register Selected")
+            isValid = True
+            registerUser()
+
+        elif typeOfAction == "X" :
+            print("Transaction Cancelled")
+            isValid =True
+            splashscreen()
+
+        else:
+            print("Invalid input... Please Try Again")
+            input()
+
+
+def loginUser():
+    retrycount = 0
+    gisValid = False
+    isAccValid = False
+    global phoneNumber, pin
+
+    def start():
+        print("Please enter the following details:")
+
+        if retrycount >= 3:
+            splashscreen()
+
+        while not isValid:
+            phonenumber = input("Phone Number: ")
+
+            #TODO: check for input errors
+            isValid = True
+
+        pinorpass = input("Enter your pin or password")
+
+        selectData(phoneNumber, 1)
+
+        while isAccValid == False:
+            if phoneNumber == Accountdata.phoneNumber and pinorpass == Accountdata.pinorpass:
+                print("Login Successfull.")
+                input()
+                isAccValid = True
+                selectData(phoneNumber, 2)
+                mainMenu(phoneNumber)
+            else:
+                print("The Account Number and PIN does not Match")
+                retrycount+ 1
+                if retrycount <= 3:
+                    print("Please Try Again later")
+                    splashscreen()
+                else:
+                    print("Please Try Again later")
+                    start()
+
+
+def registerUser():
+    global birthday, birthmonth, birthyear
+    global fname, mname, lastname ,address, numberID, pinorpass, pinorpass2, completebday, typeofID, phoneNumber
+    accStatus = "Unverified"
+    isValid = False
+
+    print("Please fill the information needed below/n")
+    fname = input("Enter First Name: ")
+    mname = input("Enter Middle Name ")
+    lname = input("Enter Last Name ")
+
+    while not isValid:
+        birthday = int(input("Enter your Birthday (Day) DD: "))
+        if birthday <= 0 and birthday >= 31:
+            print("Invalid date. Please try again")
+        else:
+            isValid = True
+
+    isValid = False
+    while not isValid:
+        birthmonth = int(input("Enter your Birthmonth (Month) MM: "))
+        if birthmonth <= 0 and birthmonth > 12:
+            print("Invalid month. Please try again")
+        else:
+            isValid = True
+
+    isValid = False
+    while not isValid:
+        birthyear = int(input("Enter your Birthyear (Year) YYYY: "))
+        if birthyear <= 999 and birthyear >= 10000:
+            print("Invalid year. Please try again")
+        else:
+            isValid = True
+
+    completebday = str(birthday) + "/" + str(birthmonth) + "/" + str(birthyear)
+
+    address = input("Enter Permanent Home Address: ")
+
+    print("Type of ID you want to attach:")
+    print("(1)Passport")
+    print("(2)Driver's license")
+    print("(3)Professional Regulation Commission(PRC) ID")
+    print("(4)Postal ID")
+    print("(5)Voter’s ID")
+    print("(6)Taxpayer Identification Number(TIN)")
+    print("(7)Government Service Insurance System(GSIS)")
+    print("(8)Social Security System(SSS) card")
+    print("(9)Senior Citizen card")
+    print("(10)Overseas Workers Welfare Administration(OWWA) ID")
+    print("(11) Overseas Filipino Worker(OFW) ID")
+    print("(12)Government office and Government - owned and Controlled Corporation(GOCC) ID:")
+    print("(13)ID issued by the National Council on Disability Affairs")
+    print("(14)Integrated Bar of the Philippines(IBP) ID")
+    print("(15)Company IDs")
+    print("(16)PhilHealth Health Insurance Card ng Bayan")
+    print("(17)National Bureau of Investigation(NBI) Clearance")
+    print("(18)Police Clearance")
+    print("(19)Baranggay Certification")
+    print("(10)Seaman’s Book")
+    print("(11)Alien Certificate of Registration / Immigrant Certificate of Registration")
+    print("(12)Department of Social Welfare and Development(DSWD) Certification")
+    print("(13)Professional ID cards issued by Maritime Industry Authority(MARINA)")
+
+    numberID = input(" Your choice")
+
+
+def mainMenu(phonenumber):
+    pass
+#---------------------------------------------DATABASE---FUNCTIONS---------------------------------------------------------------------
+
+def createDB():
+    conn = sqlite3.connect('test.db')
+    print("Opened database successfully")
+
+def createTable():
+    conn = sqlite3.connect('test.db')
+    print("Opened database successfully")
+
+    sql = "CREATE TABLE IF NOT EXISTS 'ACCOUNT'("
+    "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+    "FNAME TEXT NOT NULL, "
+    "MNAME TEXT NOT NULL, "
+    "LNAME TEXT NOT NULL, "
+    "BIRTHDAY TEXT NOT NULL, "
+    "ADDRESS TEXT NOT NULL, "
+    "TYPEOFID TEXT NOT NULL, "
+    "IDNUMBER TEXT NOT NULL, "
+    "ACCOUNTSTATUS TEXT NOT NULL, "
+    "BALANCE INTEGER DEFAULT 0, "
+    "PINNUMBER TEXT NOT NULL, "
+    "PHONENUMBER TEXT NOT NULL UNIQUE );"
+
+    conn.execute(sql)
+
+    print("Table created successfully")
+
+    conn.close()
+    #TODO check if have problems
+
+
+def insertData(fname, mname, lname, birthday, address, typeofid, idnumber, accountstatus, pinnumber, phonenumber):
+    conn = sqlite3.connect('test.db')
+    print("Opened database successfully")
+
+    sql = ("INSERT INTO ACCOUNT(FNAME, MNAME, LNAME, BIRTHDAY, ADDRESS, TYPEOFID, IDNUMBER, ACCOUNTSTATUS, PINNUMBER, PHONENUMBER ) VALUES( '" + fname + "', '" + mname + "',  '" + lname + "', '" + birthday + "', '" + address + "', '" + typeofid + "','" + idnumber + "', '" + accountstatus + "', '" + pinnumber + "', '" + phonenumber + "');");
+    conn.execute(sql)
+
+    print("Records created successfully!")
+
+def selectData(phoneNumber, action):
+
+    conn = sqlite3.connect('test.db')
+    print("Opened database successfully")
+    c = conn.cursor()
+
+    sql = "SELECT * FROM ACCOUNT WHERE PHONENUMBER = '" + phoneNumber +"';"
+    c.execute(sql)
+
+    if action == 1:
+        #action 1: only password will be returned
+        getPassword(c)
+    elif action == 2:
+        #action 2: all data will returned
+        getAllData(c)
+    elif action == 3:
+        #action 3: get other users data
+        getOtherData(c)
+
+def getPassword(c):
+    items = c.fetchall()
+    for item in items:
+        Accountdata.pinorpass = item[10]
+
+def getAllData(c):
+    items = c.fetchall()
+    for item in items:
+        Accountdata.fname = item[1]
+        Accountdata.mname = item[2]
+        Accountdata.accStatus = item[8]
+        Accountdata.balance = item[9]
+        Accountdata.pinorpass = item[10]
+
+def getOtherData(c):
+    items = c.fetchall()
+    for item in items:
+        OtherAccountdata.fname = item[1]
+        OtherAccountdata.lname = item[3]
+        OtherAccountdata.balance = item[10]
+
+
+## FIRST ACTION
+splashscreen()
