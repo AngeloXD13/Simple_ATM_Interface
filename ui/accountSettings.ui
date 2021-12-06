@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Account Settings</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 99, 248, 255), stop:1 rgba(242, 169, 11, 255));</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -29,7 +32,8 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0, 0, 0, 0));
+color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>ACCOUNT SETTINGS</string>
@@ -46,6 +50,10 @@
       <width>351</width>
       <height>111</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0, 0, 0, 0));
+color: rgb(255, 255, 255);</string>
     </property>
     <property name="title">
      <string>User Controls</string>
@@ -66,6 +74,10 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(24, 93, 255);</string>
+     </property>
      <property name="text">
       <string>Change Pin</string>
      </property>
@@ -79,6 +91,10 @@
       <width>351</width>
       <height>171</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0, 0, 0, 0));
+color: rgb(255, 255, 255);</string>
     </property>
     <property name="title">
      <string>ADMIN/BANKER CONTROLS</string>
@@ -98,6 +114,10 @@
        <weight>75</weight>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(24, 93, 255);</string>
      </property>
      <property name="text">
       <string>CONVERT ALL TO AVAILABLE BALANCE</string>
@@ -119,6 +139,10 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(24, 93, 255);</string>
+     </property>
      <property name="text">
       <string>VERIFY ACCOUNT</string>
      </property>
@@ -132,6 +156,16 @@
       <width>75</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(24, 93, 255);</string>
     </property>
     <property name="text">
      <string>Back</string>
