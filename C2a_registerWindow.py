@@ -19,8 +19,12 @@ class RegisterWindowClass(QMainWindow):
         self.check_btn = self.findChild(QPushButton, "check_btn")
         self.submit_btn = self.findChild(QPushButton, "submit_btn")
         self.cancel_btn = self.findChild(QPushButton, "cancel_btn")
+        self.submit_btn.setEnabled(False)
+
+        self.submit_btn.setStyleSheet('color: rgb(255, 255, 255);\nbackground-color:rgb(8, 30, 81);')  # false
 
         self.status_lbl = self.findChild(QLabel, "status_lbl")
+        self.status_lbl.setText("Press check to submit")
         self.error_lbl = self.findChild(QLabel, "error_lbl")
         self.error_lbl.setHidden(True)
         self.fname_TE = self.findChild(QPlainTextEdit, "fname_TE")
@@ -92,6 +96,37 @@ class RegisterWindowClass(QMainWindow):
         print(email)
         phonenumber = str(self.pnumber_TE.toPlainText())
         print(phonenumber)
+
+        if fname == "":
+            self.status_lbl.setText("First Name field is empty")
+        elif mname == "":
+            self.status_lbl.setText("Middle Name field is empty")
+        elif lname == "":
+            self.status_lbl.setText("Last Name field is empty")
+        elif houselot == "":
+            self.status_lbl.setText("House and Lot field is empty")
+        elif barangay == "":
+            self.status_lbl.setText("Barangay field is empty")
+        elif citymuni == "":
+            self.status_lbl.setText("City/Municipality field is empty")
+        elif province == "":
+            self.status_lbl.setText("Province field is empty")
+        elif zipcode == "":
+            self.status_lbl.setText("ZipCode field is empty")
+        elif idtype == "Select your id---":
+            self.status_lbl.setText("Select your ID")
+        elif idnumber == "":
+            self.status_lbl.setText("ID Number field is empty")
+        elif email == "":
+            self.status_lbl.setText("Email field is empty")
+        elif phonenumber == "":
+            self.status_lbl.setText("ID Number field is empty")
+        else:
+            self.status_lbl.setText("OK")
+            self.submit_btn.setEnabled(True)
+            self.submit_btn.setStyleSheet('color: rgb(255, 255, 255);\nbackground-color: rgb(24, 93, 255);')  # true
+
+
 
 def checkDatabase(self):
     from utils.DatabaseManager import selectData

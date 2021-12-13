@@ -32,7 +32,6 @@ class ConfirmDialog(QDialog):
         self.idnumber = self.findChild(QTextBrowser, "idnumber_TB")
         self.email_TB = self.findChild(QTextBrowser, "email_TB")
         self.pnumber_TB = self.findChild(QTextBrowser, "phoneNum_TB")
-        self.checkbox = self.findChild(QCheckBox, "checkbox")
 
         self.button_box = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel)
@@ -55,7 +54,7 @@ class ConfirmDialog(QDialog):
     def saveAccountData(self, account):
         self.databasemanager = self.windowData.database
         #self.windowData.database = self.databasemanager
-        self.databasemanager.insertData(self.account.fname, self.account.mname,self.account.lname, self.account.bday, self.fullAddress, self.account.typeofid, self.account.idnumber, self.account.email, self.account.phonenumber,"Unverified", 0.00, 0.00, self.account.pin)
+        self.databasemanager.insertData(self.account.fname, self.account.mname, self.account.lname, self.account.bday, self.fullAddress, self.account.typeofid, self.account.idnumber, self.account.email, self.account.phonenumber,"Unverified", 0.00, 0.00, self.account.pin)
         gotomenu(self)
 
 
